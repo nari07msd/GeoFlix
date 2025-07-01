@@ -1,9 +1,25 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #74ebd5, #9face6);
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
+  transition: background 0.5s ease;
+}
+
+.sunny {
+  background: linear-gradient(to right, #fceabb, #f8b500);
+}
+
+.rainy {
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
+}
+
+.cloudy {
+  background: linear-gradient(to right, #d7d2cc, #304352);
+}
+
+.snowy {
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
 }
 
 .container {
@@ -13,21 +29,28 @@ body {
   background: #ffffffcc;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
 }
 
-h1 {
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-h2 {
-  color: #34495e;
-  margin-top: 30px;
+h1, h2 {
+  margin-bottom: 15px;
 }
 
 #info p {
   font-size: 18px;
   margin: 10px 0;
+}
+
+#cityForm {
+  margin: 20px 0;
+}
+
+#cityInput {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .video-list {
@@ -46,4 +69,17 @@ h2 {
 
 .video-list iframe:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .video-list iframe {
+    width: 100%;
+    max-width: 90vw;
+    height: auto;
+  }
+
+  #cityInput {
+    width: 80%;
+    margin-bottom: 10px;
+  }
 }
