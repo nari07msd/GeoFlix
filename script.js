@@ -13,16 +13,34 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-async function getLocation() {
-  try {
-    const res = await fetch("https://ipapi.co/json/");
-    const data = await res.json();
-    document.getElementById("location").innerText = `📍 Location: ${data.city}, ${data.region}, ${data.country_name}`;
-    return data.city;
-  } catch (err) {
-    console.error("Location error:", err);
-    document.getElementById("location").innerText = "❌ Failed to get location";
-    return "Bangalore";
+async function showVideos(keywords) {
+  const videoDiv = document.getElementById("videos");
+  videoDiv.innerHTML = "";
+
+  for (const keyword of keywords) {
+    try {
+      const searchQuery = encodeURIComponent(keyword + " videos");
+      const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/results?search_query=${searchQuery}`);
+      const data = await res.json();
+
+      if (data && data.url && data.url.includes("youtube.com/watch?v=")) {
+        const videoId = new URL(data.url).searchParams.get("v");
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.width = "400";
+        iframe.height = "225";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        videoDiv.appendChild(iframe);
+      } else {
+        console.warn("No video found for:", keyword);
+      }
+    } catch (error) {
+      console.error("Error loading video:", keyword, error);
+    }
+  }
+}
+
   }
 }
 
