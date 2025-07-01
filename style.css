@@ -1,9 +1,16 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
   transition: background 0.5s ease;
+  min-height: 100vh;
 }
 
 .sunny {
@@ -12,6 +19,7 @@ body {
 
 .rainy {
   background: linear-gradient(to right, #bdc3c7, #2c3e50);
+  color: #fff;
 }
 
 .cloudy {
@@ -34,37 +42,76 @@ body {
 
 h1, h2 {
   margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
 }
 
 #info p {
   font-size: 18px;
   margin: 10px 0;
+  padding: 8px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 5px;
+  display: inline-block;
 }
 
 #cityForm {
   margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 #cityInput {
-  padding: 8px 12px;
+  padding: 12px 15px;
   font-size: 16px;
   border: 1px solid #999;
-  border-radius: 5px;
-  margin-right: 10px;
+  border-radius: 5px 0 0 5px;
+  min-width: 250px;
+  flex: 1;
+  max-width: 500px;
+}
+
+#cityForm button {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#cityForm button:hover {
+  background-color: #2980b9;
 }
 
 .video-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .video-list iframe {
-  margin: 10px;
+  margin: 0;
   border: 2px solid #34495e;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
+  width: 400px;
+  height: 225px;
 }
 
 .video-list iframe:hover {
@@ -72,14 +119,37 @@ h1, h2 {
 }
 
 @media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
   .video-list iframe {
     width: 100%;
-    max-width: 90vw;
-    height: auto;
+    max-width: 100%;
+    height: 200px;
   }
-
+  
+  #cityForm {
+    flex-direction: column;
+  }
+  
   #cityInput {
-    width: 80%;
+    border-radius: 5px;
     margin-bottom: 10px;
+    max-width: 100%;
+  }
+  
+  #cityForm button {
+    border-radius: 5px;
+    width: 100%;
   }
 }
