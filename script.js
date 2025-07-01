@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const searchForm = document.getElementById("cityForm");
+  const searchInput = document.getElementById("cityInput");
+  main(); // run with IP initially
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const city = searchInput.value.trim();
+    if (city) main(city);
+  });
+});
+
 async function getLocation() {
   const res = await fetch("https://ipapi.co/json/");
   const data = await res.json();
@@ -6,12 +18,29 @@ async function getLocation() {
 }
 
 async function getWeather(city) {
-  const apiKey = '82ef7eb8c710a4d63f28712218fd2b3e';  // Replace with your OpenWeatherMap API key
+  const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your actual key
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
   const data = await res.json();
+  const weatherMain = data.weather[0].main;
   const weatherDesc = data.weather[0].description;
-  document.getElementById("weather").innerText = `🌦 Weather: ${weatherDesc}, ${data.main.temp}°C`;
-  return data.weather[0].main;
+  const temp = data.main.temp;
+
+  document.getElementById("weather").innerText = `🌦 Weather: ${weatherDesc}, ${temp}°C`;
+  updateBackground(weatherMain);
+  return weatherMain;
+}
+
+function updateBackground(weather) {
+  const body = document.body;
+  if (weather.includes("Rain")) {
+    body.className = "rainy";
+  } else if (weather.includes("Snow")) {
+    body.className = "snowy";
+  } else if (weather.includes("Clear") || weather.includes("Sunny")) {
+    body.className = "sunny";
+  } else {
+    body.className = "cloudy";
+  }
 }
 
 function getLocalTrendsMock(city) {
@@ -34,11 +63,9 @@ function showVideos(keywords) {
   });
 }
 
-async function main() {
-  const city = await getLocation();
+async function main(cityName = null) {
+  const city = cityName || await getLocation();
   const weather = await getWeather(city);
   const trend = getLocalTrendsMock(city);
   showVideos([weather, trend]);
 }
-
-main();
