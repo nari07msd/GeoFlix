@@ -18,7 +18,7 @@ async function getLocation() {
 }
 
 async function getWeather(city) {
-  const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your actual key
+  const apiKey = '82ef7eb8c710a4d63f28712218fd2b3e'; // Replace with your actual key
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
   const data = await res.json();
   const weatherMain = data.weather[0].main;
